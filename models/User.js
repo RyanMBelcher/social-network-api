@@ -30,7 +30,7 @@ const userSchema = new Schema(
         email: {
             type: String,
             unique: true,
-            required: [true, 'Email required'],
+            required: true,
             validate: {
                 validator: function (v) {
                     return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
@@ -39,13 +39,13 @@ const userSchema = new Schema(
         },
         thoughts: [
             {
-                type: Schema.Thoughts.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'thoughts',
             },
         ],
         friends: [
             {
-                type: Schema.User.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'user'
             }
         ]
@@ -62,9 +62,11 @@ const userSchema = new Schema(
 // .get()
 // return this.friends.length
 
-userSchema.virtual('friendCount').get(function () {
-    return this.friends.length;
-});
+userSchema
+    .virtual('friendCount')
+    .get(function () {
+        return this.friends.length;
+    });
 
 const User = model('user', userSchema);
 
