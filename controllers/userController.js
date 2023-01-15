@@ -13,12 +13,13 @@
 // removeFriend,
 // .findOneAndUpdate() ??? { $pull }
 
-const User = require('../models');
+const { User } = require('../models')
 
 module.exports = {
     async getUsers(req, res) {
         try {
             const userResponse = await User.find()
+            console.log(userResponse);
             return res.json(userResponse);
         } catch (error) {
             return res.status(500).json(error);

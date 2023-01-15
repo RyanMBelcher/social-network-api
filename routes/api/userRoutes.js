@@ -9,6 +9,8 @@
 // POST to add a new friend to a user's friend list
 // DELETE to remove a friend from a user's friend list
 
+// BONUS: Remove a user's associated thoughts when deleted.
+
 const router = require('express').Router();
 const {
     getUsers,
