@@ -18,6 +18,7 @@
 const { Thought } = require('../models');
 
 module.exports = {
+    // gets all thoughts
     async getThoughts(req, res) {
         try {
             const thought = await Thought.find();
@@ -28,6 +29,7 @@ module.exports = {
         }
     },
 
+    // gets a single thought by id
     async getSingleThought(req, res) {
         try {
             const singleThought = await Thought.findOne();
@@ -39,6 +41,7 @@ module.exports = {
         }
     },
 
+    // creates a new thought 
     async createThought(req, res) {
         try {
             const thoughtCreate = await Thought.create(req.body);
@@ -48,8 +51,7 @@ module.exports = {
         }
     },
 
-    // updateThought()
-
+    // updates a thought by id
     async updateThought(req, res) {
         try {
             const thoughtUpdate = await Thought.findOneAndUpdate(
@@ -65,8 +67,7 @@ module.exports = {
         }
     },
 
-    // deleteThought()
-
+    // removes a though by id
     async deleteThought(req, res) {
         try {
             const thoughtDelete = await Thought.findOneAndRemove({ _id: req.params.userId });
@@ -76,11 +77,10 @@ module.exports = {
         }
     },
 
-    // addReaction
-
+    // creates a reaction
     async addReaction(req, res) {
         try {
-            const reactionAdd = await Thought.findOneandUpdate(
+            const reactionAdd = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $addToSet: { reactions: req.body } },
                 { runValidators: true, new: true }
@@ -93,11 +93,10 @@ module.exports = {
         }
     },
 
-    // removeReaction
-
+    // removes a reaction
     async removeReaction(req, res) {
         try {
-            const reactionRemove = await Thought.findOneandUpdate(
+            const reactionRemove = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { runValidators: true, new: true }

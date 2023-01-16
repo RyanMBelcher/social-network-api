@@ -16,6 +16,7 @@
 const { User } = require('../models')
 
 module.exports = {
+    // get all users
     async getUsers(req, res) {
         try {
             const user = await User.find();
@@ -26,6 +27,7 @@ module.exports = {
         }
     },
 
+    //  get a single user by id
     async getSingleUser(req, res) {
         try {
             const singleUser = await User.findOne({ _id: req.params.userId });
@@ -37,6 +39,7 @@ module.exports = {
         }
     },
 
+    // updates a user by id
     async updateUser(req, res) {
         try {
             const userUpdate = await User.findOneAndUpdate(
@@ -52,6 +55,7 @@ module.exports = {
         }
     },
 
+    // creates a new user
     async createUser(req, res) {
         try {
             const userCreate = await User.create(req.body);
@@ -61,6 +65,7 @@ module.exports = {
         }
     },
 
+    // removes a user by id
     async deleteUser(req, res) {
         try {
             const userDelete = await User.findOneAndRemove({ _id: req.params.userId });
@@ -70,6 +75,7 @@ module.exports = {
         }
     },
 
+    // add a new friend to a user's friend list
     async addFriend(req, res) {
         try {
             const newFriend = await User.findOneAndUpdate(
@@ -85,6 +91,7 @@ module.exports = {
         }
     },
 
+    // removes a friend from a user's friend list
     async removeFriend(req, res) {
         try {
             const friendDelete = await user.findOneAndUpdate(
