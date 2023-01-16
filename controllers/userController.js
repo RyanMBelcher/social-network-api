@@ -18,9 +18,9 @@ const { User } = require('../models')
 module.exports = {
     async getUsers(req, res) {
         try {
-            const userResponse = await User.find()
-            console.log(userResponse);
-            return res.json(userResponse);
+            const user = await User.find();
+            console.log(user);
+            return res.json(user);
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -39,7 +39,7 @@ module.exports = {
 
     async createUser(req, res) {
         try {
-            const userCreate = await User.create(req.body)
+            const userCreate = await User.create(req.body);
             return res.json(userCreate);
         } catch (error) {
             return res.status(500).json(error);
