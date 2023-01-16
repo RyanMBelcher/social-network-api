@@ -55,11 +55,33 @@ module.exports = {
         }
     },
 
-    // async addFriend(req, res) {
-    //     try {
-    //         const newFriend = await User.create();
-    //     } catch (error) {
-    //         return res.status(500).json(error);
-    //     }
-    // },
+    async addFriend(req, res) {
+        try {
+            const newFriend = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { friends: req.body } },
+                { runValidators: true, new: true }
+            )
+            return !newFriend
+                ? res.status(404).json({ message: 'No user with this id!' })
+                : res.json(newFriend)
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    },
+
+    async removeFriend(req, res) {
+        try {
+            const friendDelete = await user.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $pull: { friends: req.params.friendId } },
+                { runValidators: true, new: true }
+            )
+            return !friendDelete
+                ? res.status(404).json({ message: 'No user with this id!' })
+                : res.json(friendDelete)
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
 };
