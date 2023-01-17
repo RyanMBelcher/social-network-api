@@ -70,7 +70,7 @@ module.exports = {
             )
             return !reactionAdd
                 ? res.status(404).json({ message: 'No thought with this id!' })
-                : res.json(video)
+                : res.json(reactionAdd)
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -86,7 +86,7 @@ module.exports = {
             )
             return !reactionRemove
                 ? res.status(404).json({ message: 'No reaction with this id!' })
-                : res.json(video)
+                : res.json(reactionRemove)
         } catch (error) {
             return res.status(500).json(error);
         }
