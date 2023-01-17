@@ -32,7 +32,7 @@ module.exports = {
     // gets a single thought by id
     async getSingleThought(req, res) {
         try {
-            const singleThought = await Thought.findOne();
+            const singleThought = await Thought.findOne({ _id: req.params.thoughtId });
             return !singleThought
                 ? res.status(404).json({ message: 'No thought with this id!' })
                 : res.json(singleThought);
@@ -70,7 +70,7 @@ module.exports = {
     // removes a though by id
     async deleteThought(req, res) {
         try {
-            const thoughtDelete = await Thought.findOneAndRemove({ _id: req.params.userId });
+            const thoughtDelete = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
             return res.json(thoughtDelete);
         } catch (error) {
             return res.status(500).json(error);
