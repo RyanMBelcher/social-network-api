@@ -64,7 +64,7 @@ module.exports = {
         try {
             const newFriend = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: { friends: req.body } },
+                { $addToSet: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             )
             return !newFriend
@@ -78,14 +78,14 @@ module.exports = {
     // removes a friend from a user's friend list
     async removeFriend(req, res) {
         try {
-            const friendDelete = await user.findOneAndUpdate(
+            const friendDelete = await User.findOneAndUpdate(
                 { _id: req.params.userId },
                 { $pull: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             )
             return !friendDelete
                 ? res.status(404).json({ message: 'No user with this id!' })
-                : res.json(friendDelete)
+                : res.status(200).json(friendDelete)
         } catch (error) {
             return res.status(500).json(error);
         }

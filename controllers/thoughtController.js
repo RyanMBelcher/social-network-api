@@ -1,11 +1,11 @@
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
+
 
 module.exports = {
     // gets all thoughts
     async getThoughts(req, res) {
         try {
             const thought = await Thought.find();
-            console.log(thought);
             return res.json(thought);
         } catch (error) {
             return res.status(500).json(error);
@@ -28,7 +28,12 @@ module.exports = {
     async createThought(req, res) {
         try {
             const thoughtCreate = await Thought.create(req.body);
-            return res.json(thoughtCreate);
+            const thoughtUser = await User.findOneAndUpdate(
+                { _id: req.body.userId },
+                { $addToSet: { thoughts: thoughtCreate._id } },
+                { new: true }
+            )
+            return res.json(thoughtUser);
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -86,7 +91,7 @@ module.exports = {
             )
             return !reactionRemove
                 ? res.status(404).json({ message: 'No reaction with this id!' })
-                : res.json(reactionRemove)
+                : res.status(200).json(reactionRemove)
         } catch (error) {
             return res.status(500).json(error);
         }
