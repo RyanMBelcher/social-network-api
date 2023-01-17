@@ -1,18 +1,3 @@
-// You got this bro
-
-// getUsers,
-// .find()
-// getSingleUser,
-// .findOne()
-// createUser,
-// .create()
-// deleteUser,
-// .findOneAndRemove()
-// addFriend,
-// .findOneAndUpdate() ??? { $addToSet }
-// removeFriend,
-// .findOneAndUpdate() ??? { $pull }
-
 const { User } = require('../models')
 
 module.exports = {
